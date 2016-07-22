@@ -9,6 +9,8 @@ import io.scalac.slack.websockets.WebSocket
 import io.scalac.slack.{BotModules, MessageEventBus, Config => SlackConfig}
 
 //https://pdpslack.slack.com/apps/A0F7YS25R
+//http://blog.scalac.io/2015/07/16/slack.html
+//https://devcenter.heroku.com/articles/deploying-scala
 object BotRunner extends Shutdownable {
   val system = ActorSystem("SlackBotSystem")
   val eventBus = new MessageEventBus
