@@ -12,6 +12,29 @@ class MLHBot(override val bus: MessageEventBus) extends AbstractBot {
       "Usage: $approve pof")
 
   override def act: Receive = {
+    //show broker commisions
+    case Command("show", "broker" :: args, message) =>
+      val arg = args(0)
+      if (arg.startsWith("commission")) {
+        publish(RichOutboundMessage(message.channel, List(
+          Attachment(
+            Title("Broker commission is 5%", Some("Refer to http://ten-x.com/broker for more details")),
+            Color.good
+          )
+        )
+        )
+        )
+      } else {
+        publish(RichOutboundMessage(message.channel, List(
+          Attachment(
+            Title("Go to http://ten-x.com/broker for other details"),
+            Color.good
+          )
+        )
+        )
+        )
+      }
+
     case Command("approve", document, message) =>
 
       publish(RichOutboundMessage(message.channel, List(
@@ -32,6 +55,6 @@ class MLHBot(override val bus: MessageEventBus) extends AbstractBot {
       )
 
     case Command(_, _, message) =>
-      publish(OutboundMessage(message.channel, s"No Operation \ carguments specified!"))
+      publish(OutboundMessage(message.channel, s"No Operation \ arguments specified!"))
   }
 }
